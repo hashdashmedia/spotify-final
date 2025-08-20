@@ -37,6 +37,7 @@ export interface WalletBonus {
 export interface User {
   email: string;
   name: string;
+  walletBalance: number;
   isAdmin?: boolean;
 }
 

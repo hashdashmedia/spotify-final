@@ -12,6 +12,13 @@ const Input = ({ label, value, onChange }: { label: string, value: string, onCha
     </div>
 );
 
+const Textarea = ({ label, value, onChange, rows = 3 }: { label: string, value: string, onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void, rows?: number }) => (
+    <div>
+        <label className="block text-sm font-medium text-gray-300 mb-1">{label}</label>
+        <textarea value={value} onChange={onChange} rows={rows} className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#1DB954]" />
+    </div>
+);
+
 const Section: React.FC<{ title: string, children: React.ReactNode }> = ({ title, children }) => (
     <div className="bg-[#181818] p-6 rounded-lg">
         <h2 className="text-xl font-bold text-white mb-4 border-b border-gray-700 pb-2">{title}</h2>
@@ -68,6 +75,14 @@ const AdminEditContentPage = () => {
         (newContent.howItWorks.steps as any)[index][field] = value;
         setContent(newContent);
     };
+    
+    const handleHowItWorksWysiwygChange = (index: number, field: string, value: string) => {
+        if (!content) return;
+        const newContent = { ...content };
+        (newContent.howItWorks.steps as any)[index][field] = value;
+        setContent(newContent);
+    };
+
 
     const handleSave = () => {
         if (slug && content) {
@@ -93,10 +108,7 @@ const AdminEditContentPage = () => {
 
             <Section title="SEO Meta Data">
                 <Input label="Page Title" value={content.seo.title} onChange={(e) => handleInputChange('seo', 'title', e.target.value)} />
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Meta Description</label>
-                  <WysiwygEditor value={content.seo.description} onChange={(val) => handleWysiwygChange('seo', 'description', val)} />
-                </div>
+                <Textarea label="Meta Description" value={content.seo.description} onChange={(e) => handleInputChange('seo', 'description', e.target.value)} />
                 <div className="flex items-center">
                     <span className="text-gray-400 bg-gray-900 border border-r-0 border-gray-700 rounded-l-lg px-3 py-2">/services/</span>
                     <input type="text" value={content.slug} disabled className="w-full bg-gray-800 border border-gray-700 rounded-r-lg px-4 py-2 text-gray-500" />
@@ -132,7 +144,7 @@ const AdminEditContentPage = () => {
                         <Input label={`Step ${index + 1} Title`} value={step.title} onChange={(e) => handleHowItWorksChange(index, 'title', e.target.value)} />
                          <div>
                           <label className="block text-sm font-medium text-gray-300 mb-1">{`Step ${index + 1} Description`}</label>
-                          <WysiwygEditor value={step.description} onChange={(val) => handleHowItWorksChange(index, 'description', val)} />
+                          <WysiwygEditor value={step.description} onChange={(val) => handleHowItWorksWysiwygChange(index, 'description', val)} />
                         </div>
                     </div>
                 ))}
@@ -147,10 +159,7 @@ const AdminEditContentPage = () => {
                 {content.faq.items.map((item, index) => (
                     <div key={index} className="p-4 bg-gray-900 rounded-md space-y-2">
                         <Input label={`Question ${index + 1}`} value={item.question} onChange={(e) => handleNestedInputChange('faq', index, 'question', e.target.value)} />
-                        <div>
-                          <label className="block text-sm font-medium text-gray-300 mb-1">{`Answer ${index + 1}`}</label>
-                          <WysiwygEditor value={item.answer} onChange={(val) => handleNestedWysiwygChange('faq', index, 'answer', val)} />
-                        </div>
+                        <Textarea label={`Answer ${index + 1}`} value={item.answer} rows={4} onChange={(e) => handleNestedInputChange('faq', index, 'answer', e.target.value)} />
                     </div>
                 ))}
             </Section>

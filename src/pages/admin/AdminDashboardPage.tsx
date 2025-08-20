@@ -1,7 +1,6 @@
-
 import React, { useMemo } from 'react';
 import { useOrderContext } from '../../context/OrderContext';
-import { MOCK_USERS } from '../../constants';
+import { useUserContext } from '../../context/UserContext';
 
 const StatCard = ({ title, value, icon }: { title: string, value: string | number, icon: React.ReactNode }) => (
     <div className="bg-[#181818] p-6 rounded-lg shadow-lg flex items-center">
@@ -17,6 +16,7 @@ const StatCard = ({ title, value, icon }: { title: string, value: string | numbe
 
 const AdminDashboardPage = () => {
     const { orders } = useOrderContext();
+    const { users } = useUserContext();
 
     const stats = useMemo(() => {
         const totalRevenue = orders.reduce((acc, order) => 
@@ -24,10 +24,10 @@ const AdminDashboardPage = () => {
         
         const totalOrders = orders.length;
         const pendingOrders = orders.filter(o => o.status === 'Pending').length;
-        const totalUsers = MOCK_USERS.length;
+        const totalUsers = users.length;
 
         return { totalRevenue, totalOrders, pendingOrders, totalUsers };
-    }, [orders]);
+    }, [orders, users]);
 
     return (
         <div>

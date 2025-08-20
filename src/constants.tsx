@@ -127,7 +127,7 @@ export const ORDER_HISTORY: Order[] = [
     },
     {
       id: 'ORD-004',
-      userEmail: 'user@example.com',
+      userEmail: 'djkhaled@music.com',
       serviceName: 'Spotify Podcast Plays',
       quantity: 5000,
       url: 'https://open.spotify.com/episode/6l6Vb01e3A4yZ4i4J4Z4Z4',
@@ -137,7 +137,7 @@ export const ORDER_HISTORY: Order[] = [
     },
     {
       id: 'ORD-005',
-      userEmail: 'user@example.com',
+      userEmail: 'mia@wong.music',
       serviceName: 'Spotify Plays',
       quantity: 1000,
       url: 'https://open.spotify.com/track/1a2b3c4d5e6f7g8h9i0j',
@@ -147,11 +147,11 @@ export const ORDER_HISTORY: Order[] = [
     },
 ];
 
-export const MOCK_USERS: User[] = [
-    { email: 'admin@spotifyboost.com', name: 'Admin User', isAdmin: true },
-    { email: 'user@example.com', name: 'Returning User' },
-    { email: 'djkhaled@music.com', name: 'DJ Khaled' },
-    { email: 'mia@wong.music', name: 'Mia Wong' },
+export const INITIAL_USERS: User[] = [
+    { email: 'admin@spotifyboost.com', name: 'Admin User', isAdmin: true, walletBalance: 9999.99 },
+    { email: 'user@example.com', name: 'Returning User', walletBalance: 150.75 },
+    { email: 'djkhaled@music.com', name: 'DJ Khaled', walletBalance: 500.00 },
+    { email: 'mia@wong.music', name: 'Mia Wong', walletBalance: 25.50 },
 ];
 
 export const TESTIMONIALS: Testimonial[] = [
